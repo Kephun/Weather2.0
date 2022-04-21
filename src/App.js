@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+import Location from './components/Location';
+import Present from './components/Present';
+import Weekly from './components/Weekly';
+
+
 
 function App() {
+
+  async function displayInfo() {
+    const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q='+location+'&APPID=155dcdb4ca7fd9235a73dff559981991', {mode: 'cors'});
+    const data = await response.json();
+    return data;
+  }
+
+  const [location, setLocation] = useState('London');
+
+  const changeLocation = (e) => {
+    e.preventDefault();
+    setLocation(document.getElementById('location').value);
+  }
+
+  displayInfo();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='App_display'>
+        <Location location={location}/>
+        <Present />
+        <Weekly />
+      </div>
+      <form onSubmit={changeLocation}>
+        <input id='location'/>
+      </form>
     </div>
   );
 }
