@@ -1,8 +1,15 @@
 import React from 'react'
 
-function Present() {
+function Present(props) {
+  const { data } = props;
+
+  const array = data.main
   return (
-    <div>Present</div>
+    <div>
+      {array.map((elements)=> {
+        return <div>{elements}</div>
+      })}
+    </div>
   )
 }
 

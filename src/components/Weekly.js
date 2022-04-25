@@ -1,10 +1,10 @@
 import React from 'react';
 import './Weekly.css'
 
-function Weekly() {
+function Weekly(props) {
+  const { data } = props
   return (
     <section className='weekly'>
-        Weekly
     </section>
   )
 }
