@@ -2,14 +2,12 @@ import React from 'react'
 
 function Present(props) {
   const { data } = props;
-
-  const array = data.main;
   
   return (
     <div>
-      {array.map((elements)=> {
-        return <div>{elements}</div>
-      })}
+      {data?.main?.temp}
+      {data?.weather?.[0]?.main}
+      {data?.weather?.[0]?.description}
     </div>
   )
 }
