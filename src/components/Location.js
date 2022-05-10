@@ -5,7 +5,7 @@ function Location(props) {
 
   return (
     <div>
-      {data?.name}
+      {data.name}
     </div>
   )
 }
