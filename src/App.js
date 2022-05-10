@@ -9,8 +9,9 @@ function App() {
 
   const [location, setLocation] = useState('London');
   const [data, setData] = useState('London');
-  const [disperse_daily, disperseDaily] = useState([]);
-  const [disperse_hourly, dispersehourly] = useState([])
+  const [disperse_daily, disperseInfo] = useState([]);
+  const [general, disperseGeneral] = useState([]);
+
 
   const changeLocation = (e) => {
     setLocation(e.target.value)
@@ -24,14 +25,14 @@ function App() {
 
   useEffect(()=>{
     const displayInfo = async (data) => {
-      const today = await fetch('http://api.openweathermap.org/data/2.5/weather?q='+data+'&APPID=155dcdb4ca7fd9235a73dff559981991', {mode: 'cors'});
-      const today_data = await today.json();
-      const hourly = await fetch('http://api.openweathermap.org/data/2.5/forecast?id='+today_data.id+'&appid=155dcdb4ca7fd9235a73dff559981991', {mode:'cors'});
-      const hourly_data = await hourly.json();
-      disperseDaily(today_data)
-      dispersehourly(hourly_data.list)
-      console.log(hourly_data)
-      console.log(today_data)
+      const name = await fetch('http://api.openweathermap.org/data/2.5/weather?q='+data+'&APPID=155dcdb4ca7fd9235a73dff559981991', {mode: 'cors'});
+      const name_data = await name.json();
+      const everything = await fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+name_data.coord.lat+'&lon='+name_data.coord.lon+'&exclude={part}&appid=c221b60b93ea29eb536d2733eeb4d082', {mode:'cors'});
+      const everything_data = await everything.json();
+      disperseInfo(everything_data.daily);
+      disperseGeneral(name_data);
+      console.log(everything_data)
+      console.log(name_data)
     }
 
     displayInfo(data)
@@ -44,8 +45,8 @@ function App() {
         <input onChange={changeLocation} value={location}/>
       </form>
       <div className='App_display'>
-        <Present data={disperse_daily}/>
-        <Hourly data={disperse_hourly}/>
+        <Present data={general}/>
+        <Hourly data={disperse_daily}/>
       </div>
     </div>
   );
