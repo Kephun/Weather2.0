@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.present {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+h1 {
+    font-size: 3rem;
+}
+

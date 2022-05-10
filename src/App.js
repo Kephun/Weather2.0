@@ -1,6 +1,5 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import Location from './components/Location';
 import Present from './components/Present';
 import Hourly from './components/Hourly';
 
@@ -31,7 +30,8 @@ function App() {
       const hourly_data = await hourly.json();
       disperseDaily(today_data)
       dispersehourly(hourly_data.list)
-      console.log(hourly_data.list)
+      console.log(hourly_data)
+      console.log(today_data)
     }
 
     displayInfo(data)
@@ -40,14 +40,13 @@ function App() {
 
   return (
     <div className="App">
-      <div className='App_display'>
-        <Location data={disperse_daily}/>
-        <Present data={disperse_daily}/>
-        <Hourly data={disperse_hourly}/>
-      </div>
       <form onSubmit={changeData}>
         <input onChange={changeLocation} value={location}/>
       </form>
+      <div className='App_display'>
+        <Present data={disperse_daily}/>
+        <Hourly data={disperse_hourly}/>
+      </div>
     </div>
   );
 }
